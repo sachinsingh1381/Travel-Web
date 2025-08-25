@@ -1,0 +1,578 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Traverse — Find your kind of trip</title>
+  <meta name="description" content="Traverse curates trips, stays, and experiences across the globe. Book smart, travel better." />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --brand:#3c6fff; /* primary */
+      --ink:#0b1326;   /* text */
+      --soft:#6b7a90;  /* muted */
+      --accent:#15c39a;/* highlight */
+      --warm:#ffb703;  /* secondary highlight */
+    }
+    *{font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple Color Emoji', 'Segoe UI Emoji';}
+    body{color:var(--ink);}
+    .nav-blur{backdrop-filter: saturate(1.2) blur(8px); background: rgba(11,19,38,.65)!important;}
+    .brand-gradient{background: linear-gradient(90deg, var(--brand), #7a9cff); -webkit-background-clip:text; background-clip:text; color:transparent}
+
+    /* HERO */
+    .hero{position:relative; min-height:92vh; display:grid; place-items:center; color:#fff;}
+    .hero:before{content:""; position:absolute; inset:0; background:
+      linear-gradient(180deg, rgba(3,7,18,.65) 0%, rgba(3,7,18,.25) 50%, rgba(3,7,18,.8) 100%),
+      url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; z-index:-1}
+    .glass{background:rgba(255,255,255,.78); border:1px solid rgba(255,255,255,.6); box-shadow:0 10px 30px rgba(0,0,0,.1); backdrop-filter: blur(10px); border-radius:16px}
+    .search-card input, .search-card select{height:3.2rem}
+    .chip{border:1px dashed rgba(255,255,255,.55); color:#fff; padding:.25rem .6rem; border-radius:999px; font-size:.85rem}
+
+    /* SECTION UTILS */
+    .section-title{font-weight:700}
+    .section-sub{color:var(--soft)}
+
+    /* DESTINATION CARDS */
+    .destination-card{border:0; overflow:hidden; border-radius:16px; box-shadow:0 10px 24px rgba(0,0,0,.06); transition:transform .25s ease, box-shadow .25s ease}
+    .destination-card:hover{transform:translateY(-6px); box-shadow:0 18px 36px rgba(0,0,0,.12)}
+
+    /* EXPERIENCE TAGS */
+    .pill{border:1px solid #e6ecff; padding:.4rem .9rem; border-radius:999px; font-weight:500; color:#2a3b6b; background:#f6f9ff; cursor:pointer}
+    .pill.active{background:#eaf0ff; border-color:#d9e5ff}
+
+    /* COUNTERS */
+    .stat{border-radius:16px; border:1px solid #eef1f7}
+
+    /* PARTNERS */
+    .partner img{filter:grayscale(1) contrast(.85); opacity:.7; transition:opacity .2s}
+    .partner img:hover{opacity:1; filter:none}
+
+    /* FAQ */
+    .faq .accordion-button:not(.collapsed){background:#eff4ff; color:#1a2a5a}
+
+    /* APP BADGES */
+    .store-badge{display:inline-flex; gap:.6rem; align-items:center; border:1px solid #e7e7e7; border-radius:12px; padding:.5rem .8rem; text-decoration:none; color:#111}
+
+    /* FOOTER */
+    footer a{color:#cbd6ff; text-decoration:none}
+    footer a:hover{color:#fff}
+
+    /* REVEAL ANIMS */
+    .reveal{opacity:0; transform:translateY(18px); transition: all .6s cubic-bezier(.2,.6,.2,1)}
+    .reveal.show{opacity:1; transform:none}
+
+    /* Micro-interaction */
+    .hover-rise{transition: transform .2s ease}
+    .hover-rise:hover{transform: translateY(-4px)}
+
+    /* Floating help */
+    .help-widget{position:fixed; right:20px; bottom:20px; z-index:10}
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark nav-blur fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#"><span class="brand-gradient">Traverse</span></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mnav" aria-controls="mnav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link active" href="#destinations">Destinations</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="mega" role="button" data-bs-toggle="dropdown" aria-expanded="false">Explore</a>
+            <div class="dropdown-menu p-3 shadow border-0" aria-labelledby="mega" style="min-width:640px">
+              <div class="row g-3">
+                <div class="col-6">
+                  <h6 class="text-uppercase small text-muted">Regions</h6>
+                  <div class="d-grid gap-1">
+                    <a class="dropdown-item" href="#">Europe</a>
+                    <a class="dropdown-item" href="#">Asia</a>
+                    <a class="dropdown-item" href="#">Americas</a>
+                    <a class="dropdown-item" href="#">Africa</a>
+                    <a class="dropdown-item" href="#">Oceania</a>
+                  </div>
+                </div>
+                <div class="col-6">
+                  <h6 class="text-uppercase small text-muted">Trip Styles</h6>
+                  <div class="d-grid gap-1">
+                    <a class="dropdown-item" href="#">Backpacking</a>
+                    <a class="dropdown-item" href="#">Luxury</a>
+                    <a class="dropdown-item" href="#">Honeymoon</a>
+                    <a class="dropdown-item" href="#">Family</a>
+                    <a class="dropdown-item" href="#">Workations</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="#deals">Deals</a></li>
+          <li class="nav-item"><a class="nav-link" href="#why">Why Us</a></li>
+          <li class="nav-item"><a class="btn btn-warning ms-lg-3" href="#app">Get the App</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Offcanvas mobile nav -->
+  <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="mnav">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Traverse</h5>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <a class="nav-link" href="#destinations">Destinations</a>
+      <a class="nav-link" href="#deals">Deals</a>
+      <a class="nav-link" href="#why">Why Us</a>
+      <a class="btn btn-primary mt-3" href="#newsletter">Subscribe</a>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <header class="hero pt-5">
+    <div class="container py-5">
+      <div class="row text-center justify-content-center">
+        <div class="col-xl-9">
+          <div class="d-flex justify-content-center gap-2 mb-3 flex-wrap">
+            <span class="chip">No hidden fees</span><span class="chip">Flexible cancellations</span><span class="chip">24×7 support</span>
+          </div>
+          <h1 class="display-4 fw-bold mb-2">Travel better with <span class="brand-gradient">Traverse</span></h1>
+          <p class="lead mb-4">Thoughtfully planned trips and stays that match your vibe — not a generic checklist.</p>
+        </div>
+        <div class="col-12 reveal">
+          <div class="glass p-3 p-md-4 search-card">
+            <form class="row g-2 g-md-3 align-items-center" onsubmit="event.preventDefault(); document.getElementById('results').scrollIntoView({behavior:'smooth'});">
+              <div class="col-12 col-md-4">
+                <label class="form-label small mb-1">Where to?</label>
+                <input type="text" class="form-control" placeholder="City, island, or region" />
+              </div>
+              <div class="col-6 col-md-3">
+                <label class="form-label small mb-1">Dates</label>
+                <input type="text" class="form-control" placeholder="DD/MM — DD/MM" />
+              </div>
+              <div class="col-6 col-md-3">
+                <label class="form-label small mb-1">Travelers</label>
+                <select class="form-select">
+                  <option>1 Adult</option>
+                  <option>2 Adults</option>
+                  <option>Family</option>
+                  <option>Group</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-2 d-grid">
+                <button class="btn btn-primary btn-lg" type="submit">Search</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- CATEGORIES / TABS -->
+  <section class="py-5" id="results">
+    <div class="container reveal">
+      <div class="d-flex justify-content-between align-items-end flex-wrap gap-2 mb-3">
+        <div>
+          <h2 class="section-title mb-1">Find your mood</h2>
+          <p class="section-sub mb-0">Pick a vibe. We’ll surface matching places.</p>
+        </div>
+        <ul class="nav nav-pills" id="pillTabs" role="tablist">
+          <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#p1" type="button">Beaches</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#p2" type="button">Mountains</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#p3" type="button">City breaks</button></li>
+          <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#p4" type="button">Culture</button></li>
+        </ul>
+      </div>
+
+      <div class="tab-content">
+        <!-- Beaches -->
+        <div class="tab-pane fade show active" id="p1">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+              <div class="card destination-card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1500375592092-40eb2168fd21?q=80&w=1600&auto=format&fit=crop" alt="Maldives" />
+                <div class="card-body">
+                  <h5 class="card-title mb-1">Maldives</h5>
+                  <p class="text-muted mb-2">Overwater villas, turquoise lagoons, zero stress.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge text-bg-success">$899 • 5N/6D</span>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="card destination-card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=1600&auto=format&fit=crop" alt="Goa" />
+                <div class="card-body">
+                  <h5 class="card-title mb-1">Goa</h5>
+                  <p class="text-muted mb-2">Shacks, sunsets, and spicy seafood.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge text-bg-warning">$299 • 3N/4D</span>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="card destination-card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=1600&auto=format&fit=crop" alt="Phuket" />
+                <div class="card-body">
+                  <h5 class="card-title mb-1">Phuket</h5>
+                  <p class="text-muted mb-2">Limestone cliffs & island‑hopping bliss.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge text-bg-info">$449 • 4N/5D</span>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Mountains -->
+        <div class="tab-pane fade" id="p2">
+          <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+              <div class="card destination-card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1508264165352-258a6b0a1f31?q=80&w=1600&auto=format&fit=crop" alt="Kashmir" />
+                <div class="card-body">
+                  <h5 class="card-title mb-1">Kashmir</h5>
+                  <p class="text-muted mb-2">Alpine meadows and shikara sunsets.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge text-bg-success">$399 • 4N/5D</span>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="card destination-card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1445307806294-bff7f67ff225?q=80&w=1600&auto=format&fit=crop" alt="Swiss Alps" />
+                <div class="card-body">
+                  <h5 class="card-title mb-1">Swiss Alps</h5>
+                  <p class="text-muted mb-2">Glacier trains and cozy chalets.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge text-bg-warning">$999 • 5N/6D</span>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+              <div class="card destination-card h-100">
+                <img class="card-img-top" src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?q=80&w=1600&auto=format&fit=crop" alt="Nepal" />
+                <div class="card-body">
+                  <h5 class="card-title mb-1">Nepal</h5>
+                  <p class="text-muted mb-2">Tea houses and Himalayan trails.</p>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge text-bg-info">$599 • 6N/7D</span>
+                    <button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#bookModal">Book</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- City / Culture are similar with different images and copy -->
+        <div class="tab-pane fade" id="p3">
+          <div class="alert alert-info">Hand‑picked city breaks drop here: Tokyo, Paris, Dubai…</div>
+        </div>
+        <div class="tab-pane fade" id="p4">
+          <div class="alert alert-warning">Immersive culture trips loading: Jordan, Turkey, Peru…</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DEALS BANNER -->
+  <section id="deals" class="py-5 bg-light">
+    <div class="container reveal">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6 order-lg-2">
+          <img class="img-fluid rounded-4 shadow" src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1800&auto=format&fit=crop" alt="Beach" />
+        </div>
+        <div class="col-lg-6">
+          <span class="badge text-bg-primary mb-2">Limited Time</span>
+          <h2 class="section-title mb-2">Monsoon Mega Sale — up to 40% off</h2>
+          <p class="section-sub">Asia & Europe routes | Free reschedule window | No convenience fee</p>
+          <div class="d-flex gap-2 mt-3">
+            <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#bookModal">Grab the deal</button>
+            <button class="btn btn-outline-secondary btn-lg" data-bs-toggle="tooltip" data-bs-title="T&Cs apply">Learn more</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY US + STATS -->
+  <section id="why" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <h2 class="section-title">Why travel with Traverse?</h2>
+        <p class="section-sub">We focus on details that most agencies ignore</p>
+      </div>
+      <div class="row g-4 align-items-stretch reveal">
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 rounded-4 border hover-rise text-center">
+            <div class="display-6 mb-2">🧭</div>
+            <h6 class="fw-bold">Local expertise</h6>
+            <p class="text-muted small mb-0">On‑ground partners in 60+ cities.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 rounded-4 border hover-rise text-center">
+            <div class="display-6 mb-2">🛡️</div>
+            <h6 class="fw-bold">Trip protection</h6>
+            <p class="text-muted small mb-0">Coverage for delays & cancellations.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 rounded-4 border hover-rise text-center">
+            <div class="display-6 mb-2">💬</div>
+            <h6 class="fw-bold">Fast support</h6>
+            <p class="text-muted small mb-0">Under 2 min average response time.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 rounded-4 border hover-rise text-center">
+            <div class="display-6 mb-2">🌱</div>
+            <h6 class="fw-bold">Greener choices</h6>
+            <p class="text-muted small mb-0">We offset your trip’s footprint.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4 g-3 reveal">
+        <div class="col-6 col-lg-3">
+          <div class="stat p-4 text-center">
+            <div class="fs-2 fw-bold" data-count="250">0k+</div>
+            <div class="small text-muted">Happy travelers</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat p-4 text-center">
+            <div class="fs-2 fw-bold" data-count="60">0+</div>
+            <div class="small text-muted">Cities covered</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat p-4 text-center">
+            <div class="fs-2 fw-bold" data-count="4.8">0</div>
+            <div class="small text-muted">App rating</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat p-4 text-center">
+            <div class="fs-2 fw-bold" data-count="98">0%</div>
+            <div class="small text-muted">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS STRIP -->
+  <section class="py-4 bg-light">
+    <div class="container reveal">
+      <div class="row align-items-center text-center g-4">
+        <div class="col partner"><img src="https://dummyimage.com/120x32/ddd/000&text=AirOn" height="32" alt="AirOn"/></div>
+        <div class="col partner"><img src="https://dummyimage.com/120x32/ddd/000&text=SkyGo" height="32" alt="SkyGo"/></div>
+        <div class="col partner"><img src="https://dummyimage.com/120x32/ddd/000&text=Stayio" height="32" alt="Stayio"/></div>
+        <div class="col partner"><img src="https://dummyimage.com/120x32/ddd/000&text=RailX" height="32" alt="RailX"/></div>
+        <div class="col partner"><img src="https://dummyimage.com/120x32/ddd/000&text=Tripay" height="32" alt="Tripay"/></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-5 faq">
+    <div class="container">
+      <div class="row g-5 align-items-start">
+        <div class="col-lg-6 reveal">
+          <h2 class="section-title mb-2">Quick answers</h2>
+          <p class="section-sub">Everything you want to know before hitting book.</p>
+          <div class="accordion" id="faq">
+            <div class="accordion-item">
+              <h2 class="accordion-header"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#f1">Can I reschedule my trip?</button></h2>
+              <div id="f1" class="accordion-collapse collapse show" data-bs-parent="#faq"><div class="accordion-body">Yes. Most packages include one free reschedule within 6 months. Exact terms vary by partner.</div></div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f2">What’s included in pricing?</button></h2>
+              <div id="f2" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Transparent pricing: taxes, service fees, and mandatory surcharges are included. Optional add‑ons are shown upfront.</div></div>
+            </div>
+            <div class="accordion-item">
+              <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#f3">Do you offer group discounts?</button></h2>
+              <div id="f3" class="accordion-collapse collapse" data-bs-parent="#faq"><div class="accordion-body">Absolutely. Groups of 6+ get tiered discounts and a dedicated trip manager.</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 reveal" id="app">
+          <div class="p-4 p-lg-5 rounded-4 border h-100">
+            <h4 class="fw-bold">Book faster on the app</h4>
+            <p class="text-muted">Offline tickets, live alerts, and smart packing lists.</p>
+            <div class="d-flex gap-2 flex-wrap">
+              <a class="store-badge" href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z" fill="#111"/></svg> App Store</a>
+              <a class="store-badge" href="#"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 2l18 10L3 22l5-8-5-8z" fill="#111"/></svg> Play Store</a>
+            </div>
+            <div class="mt-3 small text-muted">Scan to download</div>
+            <img src="https://dummyimage.com/120x120/e9eefc/333&text=QR" width="120" height="120" alt="QR" class="rounded"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section id="newsletter" class="py-5 bg-light">
+    <div class="container reveal">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <h2 class="section-title">Get travel deals in your inbox</h2>
+          <p class="section-sub">Weekly inspiration. Zero spam.</p>
+          <form class="row g-2" onsubmit="event.preventDefault(); showToast();">
+            <div class="col-12 col-md-8">
+              <input type="email" class="form-control form-control-lg" placeholder="you@example.com" required />
+            </div>
+            <div class="col-12 col-md-4 d-grid">
+              <button class="btn btn-success btn-lg" type="submit">Subscribe</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-6">
+          <img class="img-fluid rounded-4 shadow" src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1800&auto=format&fit=crop" alt="Newsletter" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-dark text-light pt-5 pb-4">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <h5 class="fw-bold">Traverse</h5>
+          <p class="text-light-50 small">Trips and stays that feel hand‑picked. Based in Bengaluru • Serving travelers worldwide.</p>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="fw-semibold">Company</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Press</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-lg-2">
+          <h6 class="fw-semibold">Support</h6>
+          <ul class="list-unstyled small">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Cancellation</a></li>
+            <li><a href="#">Travel alerts</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4">
+          <h6 class="fw-semibold">Social</h6>
+          <div class="d-flex gap-3">
+            <a href="#" aria-label="Twitter">🐦</a>
+            <a href="#" aria-label="Instagram">📸</a>
+            <a href="#" aria-label="YouTube">▶️</a>
+            <a href="#" aria-label="LinkedIn">🔗</a>
+          </div>
+        </div>
+      </div>
+      <hr class="border-secondary my-4" />
+      <div class="d-flex flex-wrap justify-content-between small text-secondary">
+        <span>© <span id="year"></span> Traverse</span>
+        <div class="d-flex gap-3">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="#">Cookies</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Floating Help Widget -->
+  <div class="help-widget">
+    <button class="btn btn-primary rounded-circle p-3 shadow" id="helpBtn" data-bs-toggle="tooltip" data-bs-title="Need help? Chat with us.">❔</button>
+  </div>
+
+  <!-- Booking Modal (simple stepper) -->
+  <div class="modal fade" id="bookModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Quick booking</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <ol class="list-group list-group-numbered">
+            <li class="list-group-item">Select dates</li>
+            <li class="list-group-item">Traveler details</li>
+            <li class="list-group-item">Payment</li>
+          </ol>
+          <div class="progress mt-3" role="progressbar" aria-label="progress"><div class="progress-bar" id="bookProgress" style="width:33%"></div></div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-outline-secondary" id="prevStep">Back</button>
+          <button class="btn btn-primary" id="nextStep">Next</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="position-fixed bottom-0 end-0 p-3" style="z-index:11">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <strong class="me-auto">Traverse</strong>
+        <small>Just now</small>
+        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">Thanks for subscribing! Check your inbox.</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Tooltips
+    const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(el => new bootstrap.Tooltip(el))
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target);} })
+    }, {threshold:.2});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el))
+
+    // Stats counter
+    const counters = document.querySelectorAll('[data-count]');
+    counters.forEach(el=>{
+      let started=false; const target = +el.dataset.count; const dec = String(target).includes('.') ? 1 : 0;
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(ent=>{
+          if(ent.isIntersecting && !started){ started=true; let cur=0; const inc = target/60; const t=setInterval(()=>{cur+=inc; if(cur>=target){cur=target; clearInterval(t);} el.textContent = cur.toFixed(dec) + (el.textContent.endsWith('%')?'%':(el.dataset.suffix||'')); }, 16); obs.unobserve(el); }
+        })
+      });
+      obs.observe(el);
+    })
+
+    // Booking modal stepper
+    let step=1; const bar = document.getElementById('bookProgress');
+    document.getElementById('nextStep').addEventListener('click',()=>{ step=Math.min(step+1,3); bar.style.width=(step*33)+'%'; })
+    document.getElementById('prevStep').addEventListener('click',()=>{ step=Math.max(step-1,1); bar.style.width=(step*33)+'%'; })
+
+    // Toast helper
+    function showToast(){ const tEl=document.getElementById('liveToast'); const t=new bootstrap.Toast(tEl); t.show(); }
+    window.showToast=showToast;
+  </script>
+</body>
+</html>

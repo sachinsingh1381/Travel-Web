@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Explore Buddy</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        /* Navbar blur background */
+        .nav-blur {
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark nav-blur fixed-top">
+        <div class="container d-flex justify-content-between">
+
+            <!-- Left: Logo -->
+            <a class="navbar-brand fw-bold fs-4" href="#">✈️ Explore Buddy</a>
+
+            <!-- Center: Menu -->
+            <div class="d-none d-lg-flex flex-grow-1 justify-content-center">
+                <ul class="navbar-nav">
+                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#destinations">Destinations</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#packages">Packages</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <!-- Right: Button -->
+            <div class="d-flex">
+                <a class="btn btn-outline-light fw-bold" href="#">Book Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+        class="container-fluid position-relative min-vh-100 d-flex align-items-center justify-content-center text-center text-white">
+        <!-- Video Background -->
+        <video autoplay muted loop class="w-100 h-100 position-absolute top-0 start-0"
+            style="object-fit: cover; z-index: -1;">
+            <source src="hero.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <!-- Hero Content -->
+        <div class="position-relative z-1 px-3">
+            <h1 class="display-1 fw-bold text-white">Explore The World</h1>
+            <p class="mb-4 fs-3">Discover breathtaking destinations with us</p>
+            <a href="#destinations" class="btn btn-primary btn-lg">Start Journey</a>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="container-fluid py-5 bg-dark text-light" id="destinations">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-white">🌍 Top Destinations</h2>
+            <p class="text-secondary">Choose from our handpicked locations around the world</p>
+        </div>
+
+        <!-- Search Section -->
+        <div class="container mb-5">
+            <div class="row text-center justify-content-center">
+                <div class="col-xl-9">
+                    <h1 class="display-5 fw-bold mb-3">Explore better with <span class="text-primary">Us!</span></h1>
+                    <p class="lead text-secondary">Thoughtfully planned trips and stays that match your vibe — not a
+                        generic checklist.</p>
+                </div>
+                <div class="col-12">
+                    <div class="card bg-secondary bg-opacity-25 shadow-lg border-0 p-3">
+                        <form class="row g-3 align-items-center"
+                            onsubmit="event.preventDefault(); document.getElementById('packages').scrollIntoView({behavior:'smooth'});">
+                            <div class="col-12 col-md-4">
+                                <label class="form-label small text-white">Where to?</label>
+                                <input type="text" class="form-control" placeholder="City, island, or region" />
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small text-white">Dates</label>
+                                <input type="text" class="form-control" placeholder="DD/MM — DD/MM" />
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <label class="form-label small text-white">Travelers</label>
+                                <select class="form-select">
+                                    <option>1 Adult</option>
+                                    <option>2 Adults</option>
+                                    <option>Family</option>
+                                    <option>Group</option>
+                                </select>
+                            </div>
+                            <div class="col-12 col-md-2 d-grid">
+                                <button class="btn btn-primary btn-lg" type="submit">Search</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Destination Cards -->
+        <div class="container">
+            <div class="row g-4">
+                <!-- Destination Card 1 -->
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light shadow-lg border-0 h-100">
+                        <img src="card1 (1).jpg" class="card-img-top" alt="Paris"
+                            style="height: 280px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Paris, France</h5>
+                            <p class="card-text text-secondary">Experience the city of love with its iconic Eiffel Tower
+                                and vibrant culture.</p>
+                            <a href="#" class="btn btn-outline-light">Explore</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination Card 2 -->
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light shadow-lg border-0 h-100">
+                        <img src="card.jpg" class="card-img-top" alt="Maldives"
+                            style="height: 280px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Maldives</h5>
+                            <p class="card-text text-secondary">Relax on crystal-clear beaches and luxurious water
+                                villas in the Maldives.</p>
+                            <a href="#" class="btn btn-outline-light">Explore</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Destination Card 3 -->
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light shadow-lg border-0 h-100">
+                        <img src="card1 (2).jpg" class="card-img-top" alt="Tokyo"
+                            style="height: 280px; object-fit: cover;">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">Tokyo, Japan</h5>
+                            <p class="card-text text-secondary">Discover the perfect blend of tradition and technology
+                                in Tokyo.</p>
+                            <a href="#" class="btn btn-outline-light">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Carousel Section -->
+    <section class="container my-5">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" data-bs-interval="6000">
+            <!-- Indicators -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+
+            <!-- Carousel Items -->
+            <div class="carousel-inner">
+                <!-- First Video -->
+                <div class="carousel-item active" data-bs-interval="6000">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="perise.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Paris, France</h5>
+                        <p>Experience the romantic city of lights and culture.</p>
+                    </div>
+                </div>
+
+                <!-- Second Video -->
+                <div class="carousel-item" data-bs-interval="6000">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="maldives.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Maldives</h5>
+                        <p>Relax on crystal-clear beaches with luxury resorts.</p>
+                    </div>
+                </div>
+
+                <!-- Third Video -->
+                <div class="carousel-item" data-bs-interval="6000">
+                    <video class="d-block w-100" autoplay muted loop playsinline>
+                        <source src="japaan.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Tokyo, Japan</h5>
+                        <p>Discover the perfect blend of tradition and technology.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section class="container-fluid py-5 bg-dark text-light" id="packages">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-white">🎒 Popular Travel Packages</h2>
+            <p class="text-secondary">Choose from our best curated holiday packages</p>
+        </div>
+
+        <div class="container">
+            <div class="row g-4">
+                <!-- Package 1 -->
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light shadow-lg border-0 h-100">
+                        <img src="card1 (1).jpg" class="card-img-top" alt="Paris Package"
+                            style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Romantic Paris Getaway</h5>
+                            <p class="card-text text-secondary">5 Nights / 6 Days – Includes hotel, flights & city tour.
+                            </p>
+                            <p class="fw-bold text-warning">₹85,000 / person</p>
+                            <a href="#" class="btn btn-primary w-100">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 2 -->
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light shadow-lg border-0 h-100">
+                        <img src="card.jpg" class="card-img-top" alt="Maldives Package"
+                            style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Luxury Maldives Retreat</h5>
+                            <p class="card-text text-secondary">4 Nights / 5 Days – Stay in a water villa with private
+                                pool.</p>
+                            <p class="fw-bold text-warning">₹1,20,000 / person</p>
+                            <a href="#" class="btn btn-primary w-100">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Package 3 -->
+                <div class="col-md-4">
+                    <div class="card bg-dark text-light shadow-lg border-0 h-100">
+                        <img src="card1 (2).jpg" class="card-img-top" alt="Tokyo Package"
+                            style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Tokyo Explorer</h5>
+                            <p class="card-text text-secondary">6 Nights / 7 Days – City tours, cultural shows &
+                                shopping.</p>
+                            <p class="fw-bold text-warning">₹95,000 / person</p>
+                            <a href="#" class="btn btn-primary w-100">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="container-fluid py-5 bg-dark text-light" id="about">
+        <div class="container">
+            <div class="row align-items-center g-4">
+
+                <!-- Left Side: Image -->
+                <div class="col-md-6 text-center">
+                    <img src="./pexels-lawrence-lam-988602849-28337239.jpg" alt="About Us"
+                        class="img-fluid rounded shadow-lg" style="height: 500px;">
+                </div>
+
+                <!-- Right Side: Content -->
+                <div class="col-md-6">
+                    <h2 class="fw-bold display-5 mb-3">About Us</h2>
+                    <p class="text-secondary fs-4 text-white">
+                        We are a passionate team of travelers and planners dedicated to creating
+                        memorable journeys for you. Our goal is to make travel stress-free, affordable,
+                        and tailored to your vibe.
+                    </p>
+                    <p class="text-secondary fs-5 text-white">
+                        From romantic getaways to adventure trips, we handpick the best destinations
+                        and packages to give you unforgettable experiences around the world.
+                    </p>
+                    <a href="#packages" class="btn btn-primary mt-2">Explore Packages</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+     <!-- WHY US + STATS -->
+  <section id="why" class="py-5">
+    <div class="container">
+      <div class="text-center mb-5 reveal">
+        <h2 class="section-title">Why travel with Traverse?</h2>
+        <p class="section-sub">We focus on details that most agencies ignore</p>
+      </div>
+      <div class="row g-4 align-items-stretch reveal">
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 rounded-4 border hover-rise text-center">
+            <div class="display-6 mb-2">🧭</div>
+            <h6 class="fw-bold">Local expertise</h6>
+            <p class="text-muted small mb-0">On‑ground partners in 60+ cities.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 rounded-4 border hover-rise text-center">
+            <div class="display-6 mb-2">🛡️</div>
+            <h6 class="fw-bold">Trip protection</h6>
+            <p class="text-muted small mb-0">Coverage for delays & cancellations.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 rounded-4 border hover-rise text-center">
+            <div class="display-6 mb-2">💬</div>
+            <h6 class="fw-bold">Fast support</h6>
+            <p class="text-muted small mb-0">Under 2 min average response time.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-4 h-100 rounded-4 border hover-rise text-center">
+            <div class="display-6 mb-2">🌱</div>
+            <h6 class="fw-bold">Greener choices</h6>
+            <p class="text-muted small mb-0">We offset your trip’s footprint.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mt-4 g-3 reveal">
+        <div class="col-6 col-lg-3">
+          <div class="stat p-4 text-center">
+            <div class="fs-2 fw-bold" data-count="250">180k+</div>
+            <div class="small text-muted">Happy travelers</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat p-4 text-center">
+            <div class="fs-2 fw-bold" data-count="60">55+</div>
+            <div class="small text-muted">Cities covered</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat p-4 text-center">
+            <div class="fs-2 fw-bold" data-count="4.8">4.5</div>
+            <div class="small text-muted">App rating</div>
+          </div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="stat p-4 text-center">
+            <div class="fs-2 fw-bold" data-count="98">97%</div>
+            <div class="small text-muted">Satisfaction</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- NEWSLETTER -->
+    <section id="newsletter" class="py-5 bg-light">
+        <div class="container reveal">
+            <div class="row align-items-center g-4">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Get travel deals in your inbox</h2>
+                    <p class="section-sub">Weekly inspiration. Zero spam.</p>
+                    <form class="row g-2" onsubmit="event.preventDefault(); showToast();">
+                        <div class="col-12 col-md-8">
+                            <input type="email" class="form-control form-control-lg" placeholder="you@example.com"
+                                required />
+                        </div>
+                        <div class="col-12 col-md-4 d-grid">
+                            <button class="btn btn-success btn-lg" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <img class="img-fluid rounded-4 shadow"
+                        src="https://images.unsplash.com/photo-1549880338-65ddcdfd017b?q=80&w=1800&auto=format&fit=crop"
+                        alt="Newsletter" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="container-fluid py-5 bg-light" id="contact">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Contact Us</h2>
+                <p class="text-muted">We’d love to hear from you! Send us a message and we’ll get back to you soon.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <form class="row g-3">
+                        <div class="col-md-6">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="col-12">
+                            <input type="text" class="form-control" placeholder="Subject" required>
+                        </div>
+                        <div class="col-12">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-4">Send Message</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light pt-5 pb-4">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <h5 class="fw-bold">Traverse</h5>
+                    <p class="text-light-50 small">Trips and stays that feel hand‑picked. Based in Bengaluru • Serving
+                        travelers worldwide.</p>
+                </div>
+                <div class="col-6 col-lg-2 ">
+                    <h6 class="fw-semibold">Company</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="col-6 col-lg-2">
+                    <h6 class="fw-semibold">Support</h6>
+                    <ul class="list-unstyled small">
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Cancellation</a></li>
+                        <li><a href="#">Travel alerts</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-semibold">Social</h6>
+                    <div class="d-flex gap-3">
+                        <a href="#" aria-label="Twitter">🐦</a>
+                        <a href="#" aria-label="Instagram">📸</a>
+                        <a href="#" aria-label="YouTube">▶️</a>
+                        <a href="#" aria-label="LinkedIn">🔗</a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary my-4" />
+            <div class="d-flex flex-wrap justify-content-between small text-secondary">
+                <span>© <span id="year"></span>ExploreBuddy</span>
+                <div class="d-flex gap-3">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
